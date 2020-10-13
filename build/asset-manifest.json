@@ -1,0 +1,12 @@
+{
+  "login": {
+    "vendors.js": "vendors.5f2307b1.chunk.js",
+    "login.css": "login.7f31c0fb.css",
+    "login.js": "login.e250902f.js"
+  },
+  "attach": {
+    "vendors.js": "vendors.5f2307b1.chunk.js",
+    "attach.css": "attach.be0a6ea1.css",
+    "attach.js": "attach.1478b810.js"
+  }
+}
