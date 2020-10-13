@@ -46,7 +46,7 @@ archive.pipe(output);
   // 'client',
   // 'package.json',
   // 'composer.json',
-  'readme.txt',
+  'readme.md',
 ].forEach((path) => {
   const p = fs.statSync(path);
   if (p.isFile()) {

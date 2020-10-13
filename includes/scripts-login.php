@@ -129,7 +129,7 @@ function wpl_login_form_attach_touch()
           <?php _e("Username:", 'passwordless-wp'); ?> <strong><?php esc_html_e($current_user->user_login); ?></strong> </p>
 
         <div class="admin-email__actions">
-          <div class="admin-attach__error"></div>
+          <div class="wtl-error"></div>
 
           <div class="admin-email__actions-primary">
             <a id="attach-btn" class="button button-primary button-large" style="margin: 0;"><?php _e("Register Token", 'passwordless-wp'); ?></a>
