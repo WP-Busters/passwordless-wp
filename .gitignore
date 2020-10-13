@@ -1,0 +1,7 @@
+.idea
+.vscode
+node_modules
+vendor
+.DS_Store
+build
+/*.zip

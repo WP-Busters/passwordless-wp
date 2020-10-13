@@ -1,0 +1,23 @@
+{
+  "name": "wpbusters/passwordless-wp",
+  "require": {
+    "php": ">=7.2",
+    "composer/installers": "~1.0",
+    "symfony/var-dumper": "^5.1",
+    "web-auth/webauthn-lib": "^3.2",
+    "nyholm/psr7-server": "^1.0",
+    "nyholm/psr7": "^1.3"
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://wpackagist.org"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "PasswordlessWP\\": "classes/"
+    },
+    "files": []
+  }
+}

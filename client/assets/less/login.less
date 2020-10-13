@@ -1,0 +1,77 @@
+@import './common.less';
+
+.wtl-login-form {
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 20px;
+  margin-left: 0;
+  font-weight: 400;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #ccd0d4;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+
+  &__items {
+    display: flex;
+    flex-direction: column;
+  }
+  &__user {
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+
+    &-name {
+      font-size: 14px;
+      line-height: 1.5;
+      display: inline-block;
+    }
+
+    .dashicons {
+      font-size: 16px;
+      height: 16px;
+      transition: 0.5s ease all;
+    }
+
+    &:hover {
+      background: #f1f1f1;
+
+      .dashicons {
+        transform: translateX(4px);
+      }
+    }
+  }
+
+  .wtl-error {
+    padding: 14px 24px;
+    color: red;
+    display: none;
+  }
+
+  &__desc {
+    padding: 14px 24px;
+    color: #5f5f5f;
+    text-align: center;
+    font-size: 12px;
+  }
+
+  h1 {
+    font-size: 14px;
+    line-height: 1.5;
+    display: inline-block;
+    margin-bottom: 3px;
+    font-weight: normal;
+    color: #3f3d56;
+    margin: 10px 50px;
+    border-bottom: 1px solid #ccd0d4;
+    font-size: 20px;
+  }
+}
+
+#loginform {
+  &.wtl-bottom-block {
+    padding-bottom: 30px;
+  }
+}
