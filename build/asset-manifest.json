@@ -1,12 +1,14 @@
 {
   "login": {
-    "vendors.js": "vendors.5f2307b1.chunk.js",
-    "login.css": "login.7f31c0fb.css",
-    "login.js": "login.e250902f.js"
+    "vendors.js": "vendors.chunk.js",
+    "vendors.js.map": "vendors.chunk.js.map",
+    "login.js": "login.js",
+    "login.js.map": "login.js.map"
   },
   "attach": {
-    "vendors.js": "vendors.5f2307b1.chunk.js",
-    "attach.css": "attach.88e6d4f3.css",
-    "attach.js": "attach.1478b810.js"
+    "vendors.js": "vendors.chunk.js",
+    "vendors.js.map": "vendors.chunk.js.map",
+    "attach.js": "attach.js",
+    "attach.js.map": "attach.js.map"
   }
 }

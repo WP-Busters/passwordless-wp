@@ -2,7 +2,7 @@
   "name": "passwordless-wp",
   "version": "1.0.0",
   "main": "index.js",
-  "author": "Ilya Zolotov <ilya@fnpen.com>",
+  "author": "WP Busters <info@wpbusters.com>",
   "license": "ISC",
   "scripts": {
     "start": "build-tools watch",
