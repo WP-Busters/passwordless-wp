@@ -69,6 +69,61 @@ if (!function_exists('plwp_session_get')) {
   }
 }
 
+if (!function_exists('plwp_starts_with')) {
+  function plwp_starts_with($haystack, $needle)
+  {
+    $length = strlen($needle);
+
+    return (substr($haystack, 0, $length) === $needle);
+  }
+}
+
+if (!function_exists('plwp_ends_with')) {
+  function plwp_ends_with($haystack, $needle)
+  {
+    $length = strlen($needle);
+    $start  = $length * -1; // negative
+
+    return (substr($haystack, $start) === $needle);
+  }
+}
+
+if (!function_exists('plwp_is_localhost')) {
+  function plwp_is_localhost()
+  {
+    return plwp_is_localhost_by_address(site_url());
+  }
+}
+if (!function_exists('plwp_is_localhost_by_address')) {
+  function plwp_is_localhost_by_address($url)
+  {
+    if (
+      false !== strpos($url, '127.0.0.1') ||
+      false !== strpos($url, 'localhost')
+    ) {
+      return true;
+    }
+
+    return false;
+  }
+}
+
+if (!function_exists('plwp_cant_work')) {
+  function plwp_cant_work()
+  {
+
+    if (!is_ssl()) {
+      if (plwp_is_localhost()) {
+        return false;
+      }
+
+      return 'no_ssl';
+    }
+
+    return false;
+  }
+}
+
 if (!function_exists('plwp_verify_none')) {
   function plwp_verify_none($key)
   {

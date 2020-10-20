@@ -40,6 +40,8 @@ The web standard was created from the outset with a “privacy by design” appr
 
 Passwordless WP is currently supported in Google Chrome, Mozilla Firefox, Microsoft Edge and Apple Safari web browsers on iOS 14 and BigSur, as well as Windows 10 and Android platforms.
 
+Passwordless WP requires HTTPS and SSL secure connection or localhost/127.0.0.1 environment. It supports only platform authenticator like Touch ID, Face ID, Windows Hello, Fingerprint and etc.
+
 # Trademark notices
 
 Registered trademarks and service marks are the property of their respective owners.
@@ -50,6 +52,10 @@ Android, Chrome, Google, Google Chrome are trademarks of Google, Inc.
 
 Microsoft, Windows are registered trademarks of Microsoft Corporation in the United States and other countries.
 
+# Contributing
+
+You can contribute or see sources to this plugin on [GitHub](https://github.com/WP-Busters/passwordless-wp).
+
 == Installation ==
 
 Installing Passwordless WP is as easy as 1-2-3!
@@ -58,6 +64,7 @@ Installing Passwordless WP is as easy as 1-2-3!
 2. Activate the plugin through the 'Plugins' screen in WordPress
 
 Use plugin links on plugins page or wp-login.php page to log in, and you will be redirected to attaching page. After attaching credentials you can use your sensor for passwordless login.
+
 
 == Frequently Asked Questions ==
 
@@ -86,6 +93,10 @@ No, plugin does not make any external requests.
 3. Use previously used names for faster login
 
 == Changelog ==
+
+v1.1.2
+* Bypass for localhost/127.0.0.1 support without HTTPS
+* Remove DB tables on uninstall
 
 v1.1.1
 * Success page

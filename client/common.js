@@ -1,13 +1,16 @@
 import $ from 'jquery';
 import { preparePublicKeyCredentials, preparePublicKeyOptions } from './webauthn';
 
-const { t, ajaxUrl, pluginUrl, hasCredentials, nonce, isSSL } = window.WP_TOUCH_LOGIN || {};
+const { t, ajaxUrl, pluginUrl, hasCredentials, nonce, cantWork: cantWorkV } =
+  window.WP_TOUCH_LOGIN || {};
 
 if (process.env.NODE_ENV === 'production') {
   __webpack_public_path__ = `${pluginUrl}/build/`;
 }
 
-export { t, ajaxUrl, hasCredentials, nonce, isSSL };
+export const cantWork = cantWorkV > 0;
+
+export { t, ajaxUrl, hasCredentials, nonce };
 
 export const fetchEndpoint = async (action, data) => {
   const result = await $.ajax({

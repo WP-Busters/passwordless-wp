@@ -2,10 +2,10 @@ import $ from 'jquery';
 import './assets/less/login.less';
 import {
   addUserToLast,
+  cantWork,
   errorHook,
   getBottomBlock,
   hasCredentials,
-  isSSL,
   isSupport,
   serverAction,
   t,
@@ -78,7 +78,7 @@ const showForm = () => {
 
   const $loginForm = $('#loginform');
 
-  if (isSupported) {
+  if (isSupported && !cantWork) {
     if (hasCredentials) {
       showForm();
     }
@@ -92,17 +92,28 @@ const showForm = () => {
 
     $loginForm.append(`<input name="plwp_supported" value="1" type="hidden" />`);
   } else {
-    let text = t.useCorrectBrowserOrLogin + '<br/>' + t.unsuportedText;
+    if (cantWork) {
+      const text = '<strong>' + t.requiredSSL + '</strong>';
 
-    if (!isSSL) {
-      text = '<strong>' + t.requiredSSL + '</strong><br/><br/>' + text;
+      $loginForm.addClass('wtl-bottom-block').append(
+        getBottomBlock({
+          image: 'noted',
+          text,
+        }),
+      );
+    } else {
+      let text = t.useCorrectBrowserOrLogin + '<br/>' + t.unsuportedText;
+
+      if (!cantWork) {
+        text = '<strong>' + t.requiredSSL + '</strong><br/><br/>' + text;
+      }
+
+      $loginForm.addClass('wtl-bottom-block').append(
+        getBottomBlock({
+          image: 'noted',
+          text,
+        }),
+      );
     }
-
-    $loginForm.addClass('wtl-bottom-block').append(
-      getBottomBlock({
-        image: 'noted',
-        text,
-      }),
-    );
   }
 })();

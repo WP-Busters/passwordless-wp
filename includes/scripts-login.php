@@ -17,7 +17,7 @@ function plwp_login_enqueue_scripts()
     'errorNoCreds' => __('No credentials available or not confirmed. Please try more or re-attach using Username and Password.', 'passwordless-wp'),
     'tokenAdded' => __('Your token was registered, now you can use it to login.', 'passwordless-wp'),
     'loginDesc' => __("Use Face ID or Touch ID to login in your account.", 'passwordless-wp'),
-    'requiredSSL' => __("HTTPS and SSL are required.", 'passwordless-wp'),
+    'requiredSSL' => __("Secure context are required. You must have HTTPS and SSL enabled.", 'passwordless-wp'),
     'anotherUser' => __("Choose user", 'passwordless-wp'),
     'suportedText' => __("Attach your Face ID or Touch ID credentials on the next step for fast authentication.", 'passwordless-wp'),
     'useCorrectBrowserOrLogin' => __("<strong>Try supported browser or use your Username and Password to log in.</strong>", 'passwordless-wp'),
@@ -25,7 +25,7 @@ function plwp_login_enqueue_scripts()
   );
 
   $settings = array(
-    'isSSL' => is_ssl(),
+    'cantWork' => plwp_cant_work() !== false,
     'ajaxUrl' => admin_url('admin-ajax.php'),
     'pluginUrl' => PLWP_URL,
     't' => $t
@@ -94,7 +94,7 @@ function plwp_wp_login_errors($errors, $redirect_to)
     if ($reason == 'not_logged') {
       $errors->add('loggedout', __('Please log in to attach your passwordless credentials.', 'passwordless-wp'), 'message');
     } else if ($reason == 'no_ssl') {
-      $errors->add('loggedout', __('PasswordlessWP supports only HTTPS.', 'passwordless-wp'), 'message');
+      $errors->add('loggedout', __('PasswordlessWP supports only HTTPS. You can test it on localhost without HTTPS.', 'passwordless-wp'), 'message');
     }
   }
 
@@ -107,8 +107,11 @@ function plwp_login_form_attach_touch()
 
   if (!is_user_logged_in()) {
     $error = 'not_logged';
-  } elseif (!is_ssl()) {
-    $error = 'no_ssl';
+  } else {
+    $cant_error = plwp_cant_work();
+    if ($cant_error) {
+      $error = $cant_error;
+    }
   }
 
   if ($error !== false) {
