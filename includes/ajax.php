@@ -84,6 +84,7 @@ function plwp_register()
 
     if ($userEntity) {
       wp_send_json_success(array(
+        'redirect_to' => apply_filters('wpl_register_success_redirect_to', wpl_get_url_attach_touch_success()),
         'user' => plwp_user_entity_to_array($userEntity)
       ));
     }

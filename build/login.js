@@ -113,7 +113,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "273422ff0550be32b721";
+/******/ 	var hotCurrentHash = "b3513bd5065eb714bb83";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -1151,7 +1151,11 @@ exports.fetchEndpoint = fetchEndpoint;
 var errorHook = function errorHook() {
   var $error = (0, _jquery["default"])('.wtl-error');
   $error.slideUp();
-  return function (message) {
+  return function (message, error) {
+    if ((error === null || error === void 0 ? void 0 : error.name) === 'NotAllowedError') {
+      message = t.errorNoCreds + '<br/><br/>' + message;
+    }
+
     $error.html(message).slideDown();
   };
 };
@@ -1372,7 +1376,7 @@ var doLogin = function doLogin() {
           case 10:
             _context.prev = 10;
             _context.t0 = _context["catch"](1);
-            error(_context.t0.message);
+            error(_context.t0.message, _context.t0);
 
           case 13:
           case "end":

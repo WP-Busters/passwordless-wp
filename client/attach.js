@@ -28,8 +28,11 @@ const onAttach = async () => {
         addUserToLast(data.user);
       }
 
-      alert(t.tokenAdded);
-      location.href = getRequestParam('redirect_to') || '/';
+      if (data.redirect_to) {
+        location.href = data.redirect_to;
+      } else {
+        location.href = getRequestParam('redirect_to') || '/';
+      }
     }
   } catch (e) {
     error(e.message);

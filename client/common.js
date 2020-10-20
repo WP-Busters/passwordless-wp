@@ -33,7 +33,10 @@ export const errorHook = () => {
 
   $error.slideUp();
 
-  return (message) => {
+  return (message, error) => {
+    if (error?.name === 'NotAllowedError') {
+      message = t.errorNoCreds + '<br/><br/>' + message;
+    }
     $error.html(message).slideDown();
   };
 };

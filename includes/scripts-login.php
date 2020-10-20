@@ -14,6 +14,7 @@ function wpl_login_enqueue_scripts()
   //$is_debug = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG;
 
   $t = array(
+    'errorNoCreds' => __('No credentials available or not confirmed. Please try more or re-attach using Username and Password.', 'passwordless-wp'),
     'tokenAdded' => __('Your token was registered, now you can use it to login.', 'passwordless-wp'),
     'loginDesc' => __("Use Face ID or Touch ID to login in your account.", 'passwordless-wp'),
     'requiredSSL' => __("HTTPS and SSL are required.", 'passwordless-wp'),
@@ -23,27 +24,26 @@ function wpl_login_enqueue_scripts()
     'unsuportedText' => __("Your browser does not support passwordless authentication using Touch or Face IDs or your system does not have device.", 'passwordless-wp'),
   );
 
+  $settings = array(
+    'isSSL' => is_ssl(),
+    'ajaxUrl' => admin_url('admin-ajax.php'),
+    'pluginUrl' => WTL_URL,
+    't' => $t
+  );
+
 
   if ($action === 'login') {
     AssetResolver::resolveAll(WTL_SLUG, 'login', true, array(
-      'WP_TOUCH_LOGIN' => array(
+      'WP_TOUCH_LOGIN' => array_merge($settings, array(
         'nonce' => wp_create_nonce('plwp_login'),
-        'isSSL' => is_ssl(),
         'hasCredentials' => get_option('wpl_has_credentials', false),
-        'ajaxUrl' => admin_url('admin-ajax.php'),
-        'pluginUrl' => WTL_URL,
-        't' => $t
-      )
+      ))
     ));
-  } else if ($action === 'attach_touch') {
+  } else if ($action === 'attach_touch' || $action === 'attach_touch_success') {
     AssetResolver::resolveAll(WTL_SLUG, 'attach', true, array(
-      'WP_TOUCH_LOGIN' => array(
+      'WP_TOUCH_LOGIN' => array_merge($settings, array(
         'nonce' => wp_create_nonce('plwp_register'),
-        'isSSL' => is_ssl(),
-        'ajaxUrl' => admin_url('admin-ajax.php'),
-        'pluginUrl' => WTL_URL,
-        't' => $t
-      )
+      ))
     ));
   }
 }
@@ -59,6 +59,12 @@ function wpl_get_url_attach_touch()
 {
   $url = wp_login_url();
   $url = add_query_arg('action', 'attach_touch', $url);
+  return $url;
+}
+function wpl_get_url_attach_touch_success()
+{
+  $url = wp_login_url();
+  $url = add_query_arg('action', 'attach_touch_success', $url);
   return $url;
 }
 
@@ -148,9 +154,72 @@ function wpl_login_form_attach_touch()
   login_footer();
   exit;
 }
+function wpl_login_form_attach_touch_success()
+{
+  $error = false;
+
+  if (!is_user_logged_in()) {
+    $error = 'not_logged';
+  } elseif (!is_ssl()) {
+    $error = 'no_ssl';
+  }
+
+  if ($error !== false) {
+    $url = wp_login_url();
+    $url = add_query_arg('plwp_redirected', $error, $url);
+    $url = add_query_arg('redirect_url', wpl_get_url_attach_touch(), $url);
+    wp_safe_redirect($url);
+    exit;
+  }
+
+  login_header(__('Attaching your Passwordless credentials', 'passwordless-wp'));
+
+  $redirect_to = isset($_REQUEST['redirect_to']) ? $_REQUEST['redirect_to'] : false;
+
+  $btn = array(
+    'href' => $redirect_to,
+    'text' => __("Next", 'passwordless-wp'),
+  );
+
+  if (!$redirect_to) {
+    $btn = array(
+      'href' => get_edit_profile_url() . '#wtl',
+      'text' => __("Go to My Profile", 'passwordless-wp'),
+    );
+  }
+
+  $btn = apply_filters('wpl_attach_success_btn', $btn);
+?>
+  <form id="attachform" class="admin-attach" onSubmit="return false;">
+    <h1 class="admin-email__heading"><?php _e("Passwordless credentials added", 'passwordless-wp'); ?></h1>
+    <div class="admin-attach__body">
+      <div class="admin-attach__body-left">
+        <p class="admin-email__details">
+          <?php _e("Congrats! You have adeded you token, you can you it for Passwordless login to WordPress. You can manage it in you profile page."); ?></a> </p>
+
+        <?php do_action('wpl_attach_success'); ?>
+
+        <div class="admin-email__actions">
+          <div class="wtl-error"></div>
+
+          <div class="admin-email__actions-primary">
+            <a href="<?php esc_attr_e($btn['href']); ?>" class="button button-primary button-large" style="margin: 0;"><?php esc_html_e($btn['text']); ?></a>
+          </div>
+        </div>
+      </div>
+      <div class="admin-attach__body-image">
+      </div>
+    </div>
+  </form>
+<?php
+
+  login_footer();
+  exit;
+}
 
 add_action('login_enqueue_scripts', 'wpl_login_enqueue_scripts', 10);
 add_action('login_form_login', 'wpl_login_form_login');
 add_filter('wp_login_errors', 'wpl_wp_login_errors', 100, 2);
 
 add_action('login_form_attach_touch', 'wpl_login_form_attach_touch');
+add_action('login_form_attach_touch_success', 'wpl_login_form_attach_touch_success');
