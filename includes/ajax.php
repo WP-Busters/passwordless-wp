@@ -80,11 +80,11 @@ function plwp_register()
 
     $userEntity = $publicKeyCredentialCreationOptions->getUser();
 
-    update_option('wpl_has_credentials', true, false);
+    update_option('plwp_has_credentials', true, false);
 
     if ($userEntity) {
       wp_send_json_success(array(
-        'redirect_to' => apply_filters('wpl_register_success_redirect_to', wpl_get_url_attach_touch_success()),
+        'redirect_to' => apply_filters('plwp_register_success_redirect_to', plwp_get_url_attach_touch_success()),
         'user' => plwp_user_entity_to_array($userEntity)
       ));
     }

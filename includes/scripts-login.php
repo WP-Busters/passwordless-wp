@@ -7,7 +7,7 @@ if (!defined('ABSPATH')) {
   die;
 }
 
-function wpl_login_enqueue_scripts()
+function plwp_login_enqueue_scripts()
 {
   global $action;
 
@@ -27,20 +27,20 @@ function wpl_login_enqueue_scripts()
   $settings = array(
     'isSSL' => is_ssl(),
     'ajaxUrl' => admin_url('admin-ajax.php'),
-    'pluginUrl' => WTL_URL,
+    'pluginUrl' => PLWP_URL,
     't' => $t
   );
 
 
   if ($action === 'login') {
-    AssetResolver::resolveAll(WTL_SLUG, 'login', true, array(
+    AssetResolver::resolveAll(PLWP_SLUG, 'login', true, array(
       'WP_TOUCH_LOGIN' => array_merge($settings, array(
         'nonce' => wp_create_nonce('plwp_login'),
-        'hasCredentials' => get_option('wpl_has_credentials', false),
+        'hasCredentials' => get_option('plwp_has_credentials', false),
       ))
     ));
   } else if ($action === 'attach_touch' || $action === 'attach_touch_success') {
-    AssetResolver::resolveAll(WTL_SLUG, 'attach', true, array(
+    AssetResolver::resolveAll(PLWP_SLUG, 'attach', true, array(
       'WP_TOUCH_LOGIN' => array_merge($settings, array(
         'nonce' => wp_create_nonce('plwp_register'),
       ))
@@ -48,27 +48,27 @@ function wpl_login_enqueue_scripts()
   }
 }
 
-function wpl_login_form_login()
+function plwp_login_form_login()
 {
   if (isset($_REQUEST['plwp_supported']) && !empty($_REQUEST['plwp_supported'])) {
-    add_filter('login_redirect', 'wpl_login_form_login_redirect', 1000, 3);
+    add_filter('login_redirect', 'plwp_login_form_login_redirect', 1000, 3);
   }
 }
 
-function wpl_get_url_attach_touch()
+function plwp_get_url_attach_touch()
 {
   $url = wp_login_url();
   $url = add_query_arg('action', 'attach_touch', $url);
   return $url;
 }
-function wpl_get_url_attach_touch_success()
+function plwp_get_url_attach_touch_success()
 {
   $url = wp_login_url();
   $url = add_query_arg('action', 'attach_touch_success', $url);
   return $url;
 }
 
-function wpl_login_form_login_redirect($redirect_to, $requested_redirect_to, $user)
+function plwp_login_form_login_redirect($redirect_to, $requested_redirect_to, $user)
 {
   if (!$user || is_wp_error($user) || !is_ssl()) {
     return $redirect_to;
@@ -81,12 +81,12 @@ function wpl_login_form_login_redirect($redirect_to, $requested_redirect_to, $us
     }
   }
 
-  $url = wpl_get_url_attach_touch();
+  $url = plwp_get_url_attach_touch();
   $url = add_query_arg('redirect_to', $redirect_to, $url);
   return  $url;
 }
 
-function wpl_wp_login_errors($errors, $redirect_to)
+function plwp_wp_login_errors($errors, $redirect_to)
 {
   if (isset($_REQUEST['plwp_redirected'])) {
     $reason = $_REQUEST['plwp_redirected'];
@@ -101,7 +101,7 @@ function wpl_wp_login_errors($errors, $redirect_to)
   return $errors;
 }
 
-function wpl_login_form_attach_touch()
+function plwp_login_form_attach_touch()
 {
   $error = false;
 
@@ -114,7 +114,7 @@ function wpl_login_form_attach_touch()
   if ($error !== false) {
     $url = wp_login_url();
     $url = add_query_arg('plwp_redirected', $error, $url);
-    $url = add_query_arg('redirect_url', wpl_get_url_attach_touch(), $url);
+    $url = add_query_arg('redirect_url', plwp_get_url_attach_touch(), $url);
     wp_safe_redirect($url);
     exit;
   }
@@ -154,7 +154,7 @@ function wpl_login_form_attach_touch()
   login_footer();
   exit;
 }
-function wpl_login_form_attach_touch_success()
+function plwp_login_form_attach_touch_success()
 {
   $error = false;
 
@@ -167,7 +167,7 @@ function wpl_login_form_attach_touch_success()
   if ($error !== false) {
     $url = wp_login_url();
     $url = add_query_arg('plwp_redirected', $error, $url);
-    $url = add_query_arg('redirect_url', wpl_get_url_attach_touch(), $url);
+    $url = add_query_arg('redirect_url', plwp_get_url_attach_touch(), $url);
     wp_safe_redirect($url);
     exit;
   }
@@ -188,7 +188,7 @@ function wpl_login_form_attach_touch_success()
     );
   }
 
-  $btn = apply_filters('wpl_attach_success_btn', $btn);
+  $btn = apply_filters('plwp_attach_success_btn', $btn);
 ?>
   <form id="attachform" class="admin-attach" onSubmit="return false;">
     <h1 class="admin-email__heading"><?php _e("Passwordless credentials added", 'passwordless-wp'); ?></h1>
@@ -197,7 +197,7 @@ function wpl_login_form_attach_touch_success()
         <p class="admin-email__details">
           <?php _e("Congrats! You have adeded you token, you can you it for Passwordless login to WordPress. You can manage it in you profile page."); ?></a> </p>
 
-        <?php do_action('wpl_attach_success'); ?>
+        <?php do_action('plwp_attach_success'); ?>
 
         <div class="admin-email__actions">
           <div class="wtl-error"></div>
@@ -217,9 +217,9 @@ function wpl_login_form_attach_touch_success()
   exit;
 }
 
-add_action('login_enqueue_scripts', 'wpl_login_enqueue_scripts', 10);
-add_action('login_form_login', 'wpl_login_form_login');
-add_filter('wp_login_errors', 'wpl_wp_login_errors', 100, 2);
+add_action('login_enqueue_scripts', 'plwp_login_enqueue_scripts', 10);
+add_action('login_form_login', 'plwp_login_form_login');
+add_filter('wp_login_errors', 'plwp_wp_login_errors', 100, 2);
 
-add_action('login_form_attach_touch', 'wpl_login_form_attach_touch');
-add_action('login_form_attach_touch_success', 'wpl_login_form_attach_touch_success');
+add_action('login_form_attach_touch', 'plwp_login_form_attach_touch');
+add_action('login_form_attach_touch_success', 'plwp_login_form_attach_touch_success');

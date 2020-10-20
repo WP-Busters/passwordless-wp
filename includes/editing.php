@@ -2,7 +2,7 @@
 
 use PasswordlessWP\PublicKeyCredentialSourceRepository;
 
-function wpl_show_user_profile_list($profileuser)
+function plwp_show_user_profile_list($profileuser)
 {
   $user_id = $profileuser->ID;
   // $credentialSourceRepository = new PublicKeyCredentialSourceRepository($user_id);
@@ -65,7 +65,7 @@ function wpl_show_user_profile_list($profileuser)
         </table>
         <?php if ($user_id === get_current_user_id()) : ?>
           <br />
-          <a type="button" class="button" href="<?php esc_attr_e(add_query_arg('redirect_to', get_edit_user_link($user_id), wpl_get_url_attach_touch())); ?>"><?php _e('Register New Token', 'passwordless-wp'); ?></a>
+          <a type="button" class="button" href="<?php esc_attr_e(add_query_arg('redirect_to', get_edit_user_link($user_id), plwp_get_url_attach_touch())); ?>"><?php _e('Register New Token', 'passwordless-wp'); ?></a>
         <?php endif; ?>
       </td>
     </tr>
@@ -73,17 +73,17 @@ function wpl_show_user_profile_list($profileuser)
 <?php
 }
 
-add_action('show_user_profile', 'wpl_show_user_profile_list', 160);
-// add_action('edit_user_profile', 'wpl_show_user_profile_list', 160);
+add_action('show_user_profile', 'plwp_show_user_profile_list', 160);
+// add_action('edit_user_profile', 'plwp_show_user_profile_list', 160);
 // edit_user_profile - other users
 
 function plwp_plugin_settings_link($links)
 {
   $settings_link = '<a href="' . esc_attr(get_edit_profile_url() . '#wtl') . '">Manage your credentials</a>';
-  $add_link = '<a href="' . esc_attr(wpl_get_url_attach_touch()) . '">Add credentials</a>';
+  $add_link = '<a href="' . esc_attr(plwp_get_url_attach_touch()) . '">Add credentials</a>';
   array_unshift($links, $settings_link);
   array_unshift($links, $add_link);
   return $links;
 }
 
-add_filter("plugin_action_links_" . WTL_PLUGIN, 'plwp_plugin_settings_link');
+add_filter("plugin_action_links_" . PLWP_PLUGIN, 'plwp_plugin_settings_link');

@@ -92,7 +92,7 @@ class AssetResolver
 				$map = $manifest[$entry];
 
 				if (isset($map[$path])) {
-					return WTL_URL . 'build' . self::leading_slash_it($map[$path]);
+					return PLWP_URL . 'build' . self::leading_slash_it($map[$path]);
 				}
 			}
 		}
@@ -107,7 +107,7 @@ class AssetResolver
 	private static function get_manifest()
 	{
 		if (!self::$manifest) {
-			$manifest = WTL_FOLDER . 'build/asset-manifest.json';
+			$manifest = PLWP_FOLDER . 'build/asset-manifest.json';
 
 			if (
 				$map = file_get_contents($manifest) and

@@ -40,6 +40,20 @@ if (!function_exists('plwp_create_tables')) {
   }
 }
 
+if (!function_exists('plwp_drop_data')) {
+  function plwp_drop_data()
+  {
+    global $wpdb;
+
+    $tables = plwp_table_names();
+
+    $wpdb->query("DROP TABLE IF EXISTS {$tables->creds};");
+
+    delete_option('plwp_has_credentials');
+    plwp_session_delete();
+  }
+}
+
 // plwp_create_tables();
 
 function plwp_delete_user_data($user_id)
