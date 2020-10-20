@@ -7,7 +7,7 @@
  * Author: WP Busters
  * Author URI: https://wpbusters.com/
  * Text Domain: passwordless-wp
- * Version: 1.1.0
+ * Version: 1.1.1
  * Domain Path: /languages
  * 
  */
@@ -21,7 +21,7 @@ include_once 'vendor/autoload.php';
 
 
 define('WTL_SLUG', 'passwordless-wp');
-define('WTL_VERSION', '1.1.0');
+define('WTL_VERSION', '1.1.1');
 define('WTL_FOLDER', plugin_dir_path(__FILE__));
 define('WTL_URL', plugin_dir_url(__FILE__));
 define('WTL_PLUGIN', plugin_basename(__FILE__));

@@ -87,5 +87,12 @@ No, plugin does not make any external requests.
 
 == Changelog ==
 
+v1.1.1
+* Success page
+* Added test of error
+
+v1.1.0
+* Added special tables
+
 v1.0.0
 * First Release
