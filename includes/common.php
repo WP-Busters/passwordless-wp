@@ -144,7 +144,7 @@ if (!function_exists('plwp_user_entity_to_array')) {
       'id' => $userEntity->getId(),
       'displayName' => $userEntity->getDisplayName(),
       'name' => $userEntity->getName(),
-      'icon' => $userEntity->getIcon(),
+      'icon' => $userEntity->getIcon()
     );
   }
 }

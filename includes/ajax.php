@@ -39,7 +39,7 @@ function plwp_register_options()
   $authenticatorSelectionCriteria = new AuthenticatorSelectionCriteria(
     AuthenticatorSelectionCriteria::AUTHENTICATOR_ATTACHMENT_PLATFORM,     // Platform authenticator
     true,                                                                  // Resident key required
-    AuthenticatorSelectionCriteria::USER_VERIFICATION_REQUIREMENT_REQUIRED, // User verification required
+    AuthenticatorSelectionCriteria::USER_VERIFICATION_REQUIREMENT_REQUIRED // User verification required
 
   );
 

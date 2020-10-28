@@ -18,6 +18,8 @@ Use your glance or fingerprint using Touch ID or Face ID for easy and secure acc
 Improve your authentication security; you do not need a password.
 When you enable Passwordless WP on your site, you can log in with a simple action.
 
+[youtube https://www.youtube.com/watch?v=ZdhW089h69w]
+
 The Web Authentication API (also known as WebAuthn) is a specification written by the W3C and FIDO, with the participation of Google, Mozilla, Microsoft, Yubico, and others. The API allows servers to register and authenticate users using public-key cryptography instead of a password.
 
 = Safe facial or fingerprint data =
@@ -65,6 +67,7 @@ Installing Passwordless WP is as easy as 1-2-3!
 
 Use plugin links on plugins page or wp-login.php page to log in, and you will be redirected to attaching page. After attaching credentials you can use your sensor for passwordless login.
 
+[youtube https://youtu.be/DeLyL-dV59Y]
 
 == Frequently Asked Questions ==
 
@@ -93,6 +96,9 @@ No, plugin does not make any external requests.
 3. Use previously used names for faster login
 
 == Changelog ==
+
+v1.1.3
+* PHP 7.2 fix in code trailing comma
 
 v1.1.2
 * Bypass for localhost/127.0.0.1 support without HTTPS
