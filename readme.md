@@ -44,6 +44,11 @@ Passwordless WP is currently supported in Google Chrome, Mozilla Firefox, Micros
 
 Passwordless WP requires HTTPS and SSL secure connection or localhost/127.0.0.1 environment. It supports only platform authenticator like Touch ID, Face ID, Windows Hello, Fingerprint and etc.
 
+= Help with ideas and testing =
+
+If you want to discuss and suggest any new ideas,
+Join to Early Access Team group here: https://www.facebook.com/groups/676882319616540/
+
 # Trademark notices
 
 Registered trademarks and service marks are the property of their respective owners.
@@ -96,6 +101,9 @@ No, plugin does not make any external requests.
 3. Use previously used names for faster login
 
 == Changelog ==
+
+v1.1.6
+* RS support without gmp
 
 v1.1.3
 * PHP 7.2 fix in code trailing comma

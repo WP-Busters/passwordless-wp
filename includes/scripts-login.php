@@ -16,7 +16,7 @@ function plwp_login_enqueue_scripts()
   $t = array(
     'errorNoCreds' => __('No credentials available or not confirmed. Please try more or re-attach using Username and Password.', 'passwordless-wp'),
     'tokenAdded' => __('Your token was registered, now you can use it to login.', 'passwordless-wp'),
-    'loginDesc' => __("Use Face ID or Touch ID to login in your account.", 'passwordless-wp'),
+    'loginDesc' => __("Use Face ID or Touch ID to log into your account.", 'passwordless-wp'),
     'requiredSSL' => __("Secure context are required. You must have HTTPS and SSL enabled.", 'passwordless-wp'),
     'anotherUser' => __("Choose user", 'passwordless-wp'),
     'suportedText' => __("Attach your Face ID or Touch ID credentials on the next step for fast authentication.", 'passwordless-wp'),
